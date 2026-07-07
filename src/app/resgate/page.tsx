@@ -44,12 +44,18 @@ export default function ResgatePage() {
     setStep(4);
   }
 
+  function formatarWhatsapp(valor: string) {
+    if (valor.trimStart().startsWith("+")) {
+      return "+" + valor.replace(/\D/g, "").slice(0, 15);
+    }
+    const digitos = valor.replace(/\D/g, "").slice(0, 11);
+    if (digitos.length <= 2) return digitos;
+    if (digitos.length <= 7) return `(${digitos.slice(0, 2)}) ${digitos.slice(2)}`;
+    return `(${digitos.slice(0, 2)}) ${digitos.slice(2, 7)}-${digitos.slice(7)}`;
+  }
+
   function handleWhatsappChange(e: React.ChangeEvent<HTMLInputElement>) {
-    let valor = e.target.value.replace(/[^\d+]/g, "");
-    const temMais = valor.startsWith("+");
-    valor = (temMais ? "+" : "") + valor.replace(/\+/g, "");
-    valor = valor.slice(0, temMais ? 16 : 15);
-    setWhatsapp(valor);
+    setWhatsapp(formatarWhatsapp(e.target.value));
     setErroWhatsapp("");
   }
 
@@ -57,9 +63,10 @@ export default function ResgatePage() {
     e.preventDefault();
     if (!nome || !whatsapp) return;
     const digitos = whatsapp.replace(/\D/g, "");
-    if (digitos.length < 10 || digitos.length > 15) {
+    const internacional = whatsapp.trimStart().startsWith("+");
+    if (internacional ? digitos.length < 8 : digitos.length < 10) {
       setErroWhatsapp(
-        "Confere o número — precisa ter DDD + número completo (10 a 15 dígitos)."
+        "Coloca um WhatsApp válido — com DDD, ou começando com + e o código do país se você é de fora do Brasil."
       );
       return;
     }
@@ -125,16 +132,15 @@ export default function ResgatePage() {
           <label className="block text-sm font-medium mb-1">WhatsApp</label>
           <input
             type="tel"
-            inputMode="numeric"
+            inputMode="tel"
             value={whatsapp}
             onChange={handleWhatsappChange}
-            placeholder="41999999999"
+            placeholder="(41) 99999-9999"
             className="w-full bg-[var(--bg-dark)] border border-[#333] rounded-lg px-4 py-3 outline-none focus:border-[var(--accent)] text-[var(--text-primary)]"
             required
           />
           <p className="text-xs text-[var(--text-secondary)] mt-1 mb-1">
-            Só números, com DDD (ex: 41999999999). De fora do Brasil? Digita com + e o código
-            do país (ex: +598991234567)
+            De fora do Brasil? Digita com + e o código do país (ex: +598 99 123 456)
           </p>
           {erroWhatsapp && (
             <p className="text-xs text-red-400 mb-5">{erroWhatsapp}</p>
