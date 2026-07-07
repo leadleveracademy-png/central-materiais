@@ -24,6 +24,7 @@ export default function ResgatePage() {
   const [maiorDor, setMaiorDor] = useState("");
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState("");
+  const [erroWhatsapp, setErroWhatsapp] = useState("");
 
   async function finalizar(dorSelecionada: string) {
     setEnviando(true);
@@ -43,9 +44,25 @@ export default function ResgatePage() {
     setStep(4);
   }
 
+  function handleWhatsappChange(e: React.ChangeEvent<HTMLInputElement>) {
+    let valor = e.target.value.replace(/[^\d+]/g, "");
+    const temMais = valor.startsWith("+");
+    valor = (temMais ? "+" : "") + valor.replace(/\+/g, "");
+    valor = valor.slice(0, temMais ? 16 : 15);
+    setWhatsapp(valor);
+    setErroWhatsapp("");
+  }
+
   function handleStep1Submit(e: React.FormEvent) {
     e.preventDefault();
     if (!nome || !whatsapp) return;
+    const digitos = whatsapp.replace(/\D/g, "");
+    if (digitos.length < 10 || digitos.length > 15) {
+      setErroWhatsapp(
+        "Confere o número — precisa ter DDD + número completo (10 a 15 dígitos)."
+      );
+      return;
+    }
     setStep(1);
   }
 
@@ -108,15 +125,21 @@ export default function ResgatePage() {
           <label className="block text-sm font-medium mb-1">WhatsApp</label>
           <input
             type="tel"
+            inputMode="numeric"
             value={whatsapp}
-            onChange={(e) => setWhatsapp(e.target.value)}
-            placeholder="(41) 99999-9999"
+            onChange={handleWhatsappChange}
+            placeholder="41999999999"
             className="w-full bg-[var(--bg-dark)] border border-[#333] rounded-lg px-4 py-3 outline-none focus:border-[var(--accent)] text-[var(--text-primary)]"
             required
           />
-          <p className="text-xs text-[var(--text-secondary)] mt-1 mb-6">
-            De fora do Brasil? Digita com + e o código do país (ex: +598 99 123 456)
+          <p className="text-xs text-[var(--text-secondary)] mt-1 mb-1">
+            Só números, com DDD (ex: 41999999999). De fora do Brasil? Digita com + e o código
+            do país (ex: +598991234567)
           </p>
+          {erroWhatsapp && (
+            <p className="text-xs text-red-400 mb-5">{erroWhatsapp}</p>
+          )}
+          {!erroWhatsapp && <div className="mb-6" />}
 
           <button
             type="submit"
