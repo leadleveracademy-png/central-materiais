@@ -8,11 +8,11 @@ const LINK_GRUPO_WHATSAPP = "#LINK-DO-GRUPO";
 
 const OPCOES_FAZ = ["Personal trainer", "Nutricionista", "Criador de conteúdo", "Outro"];
 const OPCOES_FATURA = ["Ainda não faturo", "Até R$5 mil", "R$5 mil a R$20 mil", "R$20 mil ou mais"];
-const OPCOES_NIVEL_IA = [
-  "Nunca usei IA de verdade",
-  "Uso ChatGPT às vezes, no básico",
-  "Uso IA todo dia, quero avançar",
-  "Já mexo com Claude Code / automações",
+const OPCOES_DOR = [
+  "Não sei o que postar",
+  "Não converto os leads que chegam",
+  "Perco tempo com tarefa repetitiva",
+  "Já uso IA, quero escalar",
 ];
 
 export default function ResgatePage() {
@@ -21,11 +21,11 @@ export default function ResgatePage() {
   const [whatsapp, setWhatsapp] = useState("");
   const [oQueFaz, setOQueFaz] = useState("");
   const [faturamento, setFaturamento] = useState("");
-  const [nivelIa, setNivelIa] = useState("");
+  const [maiorDor, setMaiorDor] = useState("");
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState("");
 
-  async function finalizar(nivelSelecionado: string) {
+  async function finalizar(dorSelecionada: string) {
     setEnviando(true);
     setErro("");
     const { error } = await supabase.from("leads_funil_resgate").insert({
@@ -33,7 +33,7 @@ export default function ResgatePage() {
       whatsapp,
       o_que_faz: oQueFaz,
       faturamento,
-      nivel_ia: nivelSelecionado,
+      maior_dor: dorSelecionada,
     });
     setEnviando(false);
     if (error) {
@@ -66,16 +66,16 @@ export default function ResgatePage() {
           >
             Material
           </span>{" "}
-          dos reels
+          dos posts
         </h1>
         <div className="w-20 h-1 mt-6 rounded-full" style={{ background: "var(--accent-gradient)" }} />
 
         {step < 4 && (
           <p className="text-[var(--text-secondary)] mt-6 max-w-xl">
             Chegou pela bio? Aqui é onde eu libero todo o material prático que apareço usando
-            nos reels: guias, prompts e setups de IA e Claude Code. Preenche aí embaixo que eu
-            te passo o acesso — e na descrição do grupo tá a Central de Material com tudo,
-            pronto pra resgatar. Leva 15 segundos.
+            nos reels e carrosseis: guias, prompts e setups de IA e Claude. Preenche aí embaixo
+            que eu te passo o acesso — e na descrição do grupo tá a Central de Material com
+            tudo, pronto pra resgatar. Leva 15 segundos.
           </p>
         )}
       </header>
@@ -198,14 +198,14 @@ export default function ResgatePage() {
 
           {step === 3 && (
             <>
-              <p className="font-medium mb-3">Qual seu nível de IA?</p>
+              <p className="font-medium mb-3">Qual sua maior dor hoje na consultoria?</p>
               <div className="flex flex-col gap-3">
-                {OPCOES_NIVEL_IA.map((opcao) => (
+                {OPCOES_DOR.map((opcao) => (
                   <button
                     key={opcao}
                     disabled={enviando}
                     onClick={() => {
-                      setNivelIa(opcao);
+                      setMaiorDor(opcao);
                       finalizar(opcao);
                     }}
                     className="text-left bg-[var(--bg-dark)] border border-[#333] hover:border-[var(--accent)] rounded-lg px-4 py-3 transition-colors disabled:opacity-50"
