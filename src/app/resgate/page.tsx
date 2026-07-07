@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
 const LINK_GRUPO_WHATSAPP = "#LINK-DO-GRUPO";
@@ -315,17 +314,10 @@ export default function ResgatePage() {
                   Pega o material na Central
                 </h3>
               </div>
-              <p className="text-sm text-[var(--text-secondary)] mb-4">
+              <p className="text-sm text-[var(--text-secondary)]">
                 Na descrição do grupo tem o link da Central de Material — o passo a passo deste
-                reel e de todos os outros, num lugar só. É só escolher e resgatar.
+                conteúdo e de todos os outros, num lugar só. É só escolher e resgatar.
               </p>
-              <Link
-                href="/"
-                className="block text-center text-white font-bold py-3 rounded-lg transition-opacity hover:opacity-90"
-                style={{ background: "var(--accent-gradient)" }}
-              >
-                IR PRA CENTRAL DE MATERIAL →
-              </Link>
             </div>
           </div>
 
