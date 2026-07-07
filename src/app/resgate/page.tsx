@@ -227,7 +227,7 @@ export default function ResgatePage() {
 
           {step === 3 && (
             <>
-              <p className="font-medium mb-3">Qual sua maior dor hoje na consultoria?</p>
+              <p className="font-medium mb-3">Qual a sua maior dificuldade hoje para vender mais no online?</p>
               <div className="flex flex-col gap-3">
                 {OPCOES_DOR.map((opcao) => (
                   <button
