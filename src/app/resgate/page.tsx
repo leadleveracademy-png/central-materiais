@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 
-const LINK_GRUPO_WHATSAPP = "#LINK-DO-GRUPO";
+const LINK_GRUPO_WHATSAPP = "https://chat.whatsapp.com/IdETq4Lo4fcBn0HMesLSYE?mode=gi_t";
 
 const OPCOES_FAZ = ["Personal trainer", "Nutricionista", "Criador de conteúdo", "Outro"];
 const OPCOES_FATURA = ["Ainda não faturo", "Até R$5 mil", "R$5 mil a R$20 mil", "R$20 mil ou mais"];
