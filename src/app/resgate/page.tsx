@@ -4,6 +4,7 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 const LINK_GRUPO_WHATSAPP = "https://chat.whatsapp.com/IdETq4Lo4fcBn0HMesLSYE?mode=gi_t";
+const WEBHOOK_CLINT = "https://automacoes-n8n.h62woo.easypanel.host/webhook/resgates-posts-clint";
 
 const OPCOES_FAZ = ["Personal trainer", "Nutricionista", "Criador de conteúdo", "Outro"];
 const OPCOES_FATURA = ["Ainda não faturo", "Até R$5 mil", "R$5 mil a R$20 mil", "R$20 mil ou mais"];
@@ -40,6 +41,24 @@ export default function ResgatePage() {
       setErro("Não deu pra salvar seus dados agora. Tenta de novo em instantes.");
       return;
     }
+
+    fetch(WEBHOOK_CLINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      keepalive: true,
+      body: JSON.stringify({
+        nome,
+        whatsapp,
+        o_que_faz: oQueFaz,
+        faturamento,
+        maior_dor: dorSelecionada,
+        origem: "lp-nathanwexell-bio",
+        enviado_em: new Date().toISOString(),
+      }),
+    }).catch((webhookError) => {
+      console.error("Falha ao notificar webhook CLINT:", webhookError);
+    });
+
     setStep(4);
   }
 
