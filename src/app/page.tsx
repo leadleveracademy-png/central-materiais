@@ -26,7 +26,8 @@ export default function Home() {
   const filtrados = materiais.filter(
     (m) =>
       m.titulo.toLowerCase().includes(busca.toLowerCase()) ||
-      m.descricao.toLowerCase().includes(busca.toLowerCase())
+      m.descricao.toLowerCase().includes(busca.toLowerCase()) ||
+      (m.palavra_chave || "").toLowerCase().includes(busca.toLowerCase())
   );
 
   return (

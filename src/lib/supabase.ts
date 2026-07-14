@@ -18,6 +18,7 @@ export type Material = {
   descricao: string;
   conteudo_completo: string;
   imagem_capa: string | null;
+  palavra_chave: string | null;
   ordem: number;
   ativo: boolean;
   status: "rascunho" | "publicado" | "oculto";

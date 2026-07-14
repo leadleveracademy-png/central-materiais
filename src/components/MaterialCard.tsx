@@ -30,6 +30,14 @@ export default function MaterialCard({
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+        {material.palavra_chave && (
+          <span
+            className="absolute top-3 left-3 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full"
+            style={{ background: "var(--accent-gradient)" }}
+          >
+            {material.palavra_chave}
+          </span>
+        )}
         <span className="absolute bottom-4 left-4 text-[var(--accent)] font-bold text-sm tracking-wider uppercase">
           Resgatar Material →
         </span>

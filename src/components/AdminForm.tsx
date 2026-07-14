@@ -14,6 +14,7 @@ export default function AdminForm({
 }) {
   const [titulo, setTitulo] = useState(material?.titulo || "");
   const [descricao, setDescricao] = useState(material?.descricao || "");
+  const [palavraChave, setPalavraChave] = useState(material?.palavra_chave || "");
   const [conteudo, setConteudo] = useState(material?.conteudo_completo || "");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
@@ -50,6 +51,7 @@ export default function AdminForm({
     const payload = {
       titulo,
       descricao,
+      palavra_chave: palavraChave || null,
       conteudo_completo: conteudo,
       imagem_capa: imagemCapa,
       status,
@@ -105,6 +107,23 @@ export default function AdminForm({
             className="w-full bg-[var(--bg-dark)] border border-[#333] rounded-lg px-4 py-3 outline-none focus:border-[var(--accent)] text-[var(--text-primary)]"
             required
           />
+        </div>
+
+        <div>
+          <label className="block text-sm text-[var(--text-secondary)] mb-1">
+            Palavra-chave (etiqueta no card e na busca)
+          </label>
+          <input
+            type="text"
+            value={palavraChave}
+            onChange={(e) => setPalavraChave(e.target.value)}
+            placeholder="Ex: OBSIDIAN"
+            className="w-full bg-[var(--bg-dark)] border border-[#333] rounded-lg px-4 py-3 outline-none focus:border-[var(--accent)] text-[var(--text-primary)]"
+          />
+          <p className="text-xs text-[var(--text-secondary)] mt-1 opacity-60">
+            A palavra que o lead comenta no post pra resgatar esse material. Aparece como
+            etiqueta no card e entra na busca da Central.
+          </p>
         </div>
 
         <div>
