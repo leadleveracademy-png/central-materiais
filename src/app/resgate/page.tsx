@@ -17,6 +17,7 @@ export default function ResgatePage() {
   const [step, setStep] = useState(0);
   const [nome, setNome] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
+  const [instagram, setInstagram] = useState("");
   const [oQueFaz, setOQueFaz] = useState("");
   const [faturamento, setFaturamento] = useState("");
   const [maiorDor, setMaiorDor] = useState("");
@@ -46,6 +47,7 @@ export default function ResgatePage() {
         body: JSON.stringify({
           nome,
           whatsapp,
+          instagram: instagram.trim(),
           o_que_faz: oQueFaz,
           faturamento,
           maior_dor: dorSelecionada,
@@ -82,7 +84,7 @@ export default function ResgatePage() {
 
   function handleStep1Submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!nome || !whatsapp) return;
+    if (!nome || !whatsapp || !instagram) return;
     const digitos = whatsapp.replace(/\D/g, "");
     const internacional = whatsapp.trimStart().startsWith("+");
     if (internacional ? digitos.length < 8 : digitos.length < 10) {
@@ -166,7 +168,17 @@ export default function ResgatePage() {
           {erroWhatsapp && (
             <p className="text-xs text-red-400 mb-5">{erroWhatsapp}</p>
           )}
-          {!erroWhatsapp && <div className="mb-6" />}
+          {!erroWhatsapp && <div className="mb-5" />}
+
+          <label className="block text-sm font-medium mb-1">Seu @ do Instagram</label>
+          <input
+            type="text"
+            value={instagram}
+            onChange={(e) => setInstagram(e.target.value)}
+            placeholder="@seuperfil"
+            className="w-full bg-[var(--bg-dark)] border border-[#333] rounded-lg px-4 py-3 mb-6 outline-none focus:border-[var(--accent)] text-[var(--text-primary)]"
+            required
+          />
 
           <button
             type="submit"

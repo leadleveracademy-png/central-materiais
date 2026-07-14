@@ -19,6 +19,7 @@ const SUBMIT_URL = `https://forms.leadlever.com.br/api/forms/${FORM_ID}/submit`;
 const FIELD = {
   nome: "a713b90a-29c8-4142-8c9a-0c06441add70",
   whatsapp: "44054620-88f0-4e3b-803b-4216f5a52af2",
+  instagram: "3a4390b7-aec7-477e-81c1-94aa5ab8ab61",
   o_que_faz: "bd5103da-b48a-404e-b15b-41dc384a373d",
   faturamento: "e94e3bd8-154d-4cfa-8835-0f2c6ea676e7",
   maior_dor: "ccb71bf0-8ea1-4f36-a111-c5c2f06f40a4",
@@ -48,6 +49,7 @@ export async function POST(request: NextRequest) {
   let body: {
     nome?: string;
     whatsapp?: string;
+    instagram?: string;
     o_que_faz?: string;
     faturamento?: string;
     maior_dor?: string;
@@ -59,8 +61,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "JSON inválido" }, { status: 400 });
   }
 
-  const { nome, whatsapp, o_que_faz, faturamento, maior_dor } = body;
-  if (!nome || !whatsapp || !o_que_faz || !faturamento || !maior_dor) {
+  const { nome, whatsapp, instagram, o_que_faz, faturamento, maior_dor } = body;
+  if (!nome || !whatsapp || !instagram || !o_que_faz || !faturamento || !maior_dor) {
     return NextResponse.json({ error: "Dados incompletos" }, { status: 400 });
   }
 
@@ -78,6 +80,7 @@ export async function POST(request: NextRequest) {
   const answers = {
     [FIELD.nome]: nome,
     [FIELD.whatsapp]: whatsapp,
+    [FIELD.instagram]: instagram,
     [FIELD.o_que_faz]: o_que_faz,
     [FIELD.faturamento]: faturamento,
     [FIELD.maior_dor]: maior_dor,
