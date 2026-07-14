@@ -13,7 +13,7 @@
 // Form no LeverForms: https://forms.leadlever.com.br/f/resgate-material
 
 const FORM_EMBED_URL =
-  "https://forms.leadlever.com.br/f/resgate-material?embed=1&utm_source=lp-nathanwexell-bio&utm_medium=resgate";
+  "https://forms.leadlever.com.br/f/resgate-materiais?embed=1&utm_source=lp-nathanwexell-bio&utm_medium=resgate";
 
 export default function ResgatePage() {
   return (
